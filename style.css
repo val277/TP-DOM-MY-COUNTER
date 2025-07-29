@@ -37,14 +37,23 @@ button {
 
 button:nth-of-type(1) {
   background-color: rgb(65, 190, 65);
+  &:hover {
+    background-color: rgba(65, 190, 65, 0.8);
+  }
 }
 
 button:nth-of-type(2) {
   background-color: rgb(223, 84, 84);
+  &:hover {
+    background-color: rgba(223, 84, 84, 0.8);
+  }
 }
 
 button:nth-of-type(3) {
   background-color: rgb(62, 164, 241);
+  &:hover {
+    background-color: rgba(62, 164, 241, 0.8);
+  }
 }
 
 input[type="number"]::-webkit-outer-spin-button,
