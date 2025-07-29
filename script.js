@@ -2,47 +2,90 @@
 let counterValue = 0;
 let maxValue = Infinity;
 
+// FUnctions
+const createAndAddElement = function (elementType, options = {}) {
+  const element = document.createElement(elementType);
+
+  const obj = {
+    parent: options.parent ?? "body",
+    textContent: options.textContent ?? "",
+    classList: options.classList ?? [],
+    afterOrBefore: options.aob ?? null,
+  };
+
+  if (obj.textContent !== "") {
+    element.textContent = obj.textContent;
+  }
+  if (obj.classList) {
+    for (const className of obj.classList) {
+      element.classList.add(className);
+    }
+  }
+
+  if (obj.afterOrBefore) {
+    parentNode = document.querySelector(obj.parent);
+    obj.afterOrBefore === "after"
+      ? parentNode.after(element)
+      : parentNode.before(element);
+  } else {
+    parentNode = document.querySelector(obj.parent);
+    parentNode.appendChild(element);
+  }
+
+  return element;
+};
+
 // Création du container
-const container = document.createElement("div");
-container.classList.add("container");
-document.body.appendChild(container);
+
+const container = createAndAddElement("div", {
+  classList: ["container"],
+});
 
 // Création des éléments du container
-const title = document.createElement("h1");
-title.textContent = "My Counter";
 
-const counter = document.createElement("h2");
-counter.textContent = 0;
+const title = createAndAddElement("h1", {
+  parent: ".container",
+  textContent: "My Counter",
+});
 
-const incrementBtn = document.createElement("button");
-incrementBtn.textContent = "Incrémenter +";
-
-const decrementBtn = document.createElement("button");
-decrementBtn.textContent = "Décrémenter -";
-
-const resetBtn = document.createElement("button");
-resetBtn.textContent = "Reset";
-
-const maxH3 = document.createElement("h3");
-maxH3.textContent = "♾️";
-
-const maxValueInput = document.createElement("input");
+const counter = createAndAddElement("h2", {
+  parent: ".container",
+  textContent: counterValue,
+});
+const incrementBtn = createAndAddElement("button", {
+  parent: ".container",
+  textContent: "Incrémenter +",
+});
+const decrementBtn = createAndAddElement("button", {
+  parent: ".container",
+  textContent: "Décrémenter -",
+});
+const resetBtn = createAndAddElement("button", {
+  parent: ".container",
+  textContent: "Reset",
+});
+const maxH3 = createAndAddElement("h3", {
+  parent: ".container",
+  textContent: "♾️",
+});
+const maxValueInput = createAndAddElement("input", { parent: ".container" });
 maxValueInput.type = "number";
 maxValueInput.placeholder = "Entrez une valeur max";
-maxValueInput.name = "max-value"; // Il est la car le navigateur etait pas content
+maxValueInput.name = "max-value";
 
-// Ajout des éléments au DOM
-container.append(
-  title,
-  counter,
-  incrementBtn,
-  decrementBtn,
-  resetBtn,
-  maxH3,
-  maxValueInput
-);
+const testBtn = createAndAddElement("button", {
+  textContent: "after",
+  parent: "input",
+  aob: "after",
+});
 
-// Functions
+const testBtn2 = createAndAddElement("button", {
+  textContent: "before",
+  parent: "input",
+  aob: "before",
+});
+
+// Event Functions
 
 const changeValue = (op = "reset") => {
   if (op === "+") {
