@@ -37,7 +37,10 @@ container.append(
 
 // Ajout des événements aux boutons
 incrementBtn.addEventListener("click", () => {
-  if (Number(counter.textContent) < Number(maxValue.textContent)) {
+  if (
+    maxValue.textContent === "♾️" ||
+    Number(counter.textContent) < Number(maxValue.textContent)
+  ) {
     counter.textContent++;
   }
 });
