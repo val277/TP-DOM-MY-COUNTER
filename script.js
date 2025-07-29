@@ -28,6 +28,8 @@ maxH3.textContent = "♾️";
 
 const maxValueInput = document.createElement("input");
 maxValueInput.type = "number";
+maxValueInput.placeholder = "Entrez une valeur max";
+maxValueInput.name = "max-value"; // Il est la car le navigateur etait pas content
 
 // Ajout des éléments au DOM
 container.append(
