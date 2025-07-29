@@ -22,6 +22,7 @@ const createAndAddElement = function (elementType, options = {}) {
     }
   }
 
+  let parentNode;
   if (obj.afterOrBefore) {
     parentNode = document.querySelector(obj.parent);
     obj.afterOrBefore === "after"
