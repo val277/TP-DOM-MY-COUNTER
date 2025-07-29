@@ -1,3 +1,7 @@
+// Variables
+let counterValue = 0;
+let maxValue = Infinity;
+
 // Création du container
 const container = document.createElement("div");
 container.classList.add("container");
@@ -19,10 +23,11 @@ decrementBtn.textContent = "Décrémenter -";
 const resetBtn = document.createElement("button");
 resetBtn.textContent = "Reset";
 
-const maxValue = document.createElement("h3");
-maxValue.textContent = "♾️";
+const maxH3 = document.createElement("h3");
+maxH3.textContent = "♾️";
 
 const maxValueInput = document.createElement("input");
+maxValueInput.type = "number";
 
 // Ajout des éléments au DOM
 container.append(
@@ -31,34 +36,61 @@ container.append(
   incrementBtn,
   decrementBtn,
   resetBtn,
-  maxValue,
+  maxH3,
   maxValueInput
 );
 
+// Functions
+
+const changeValue = (op = "reset") => {
+  if (op === "+") {
+    if (counterValue < maxValue) {
+      counterValue++;
+      counter.textContent = counterValue;
+    }
+  } else if (op === "-") {
+    if (counterValue > 0) {
+      counterValue--;
+      counter.textContent = counterValue;
+    }
+  } else {
+    counterValue = 0;
+    counter.textContent = counterValue;
+
+    maxValue = Infinity;
+    maxH3.textContent = "♾️";
+    maxValueInput.value = null;
+  }
+};
+
+const changeMaxValue = (v) => {
+  if (v === "") {
+    maxH3.textContent = "♾️";
+    maxValue = Infinity;
+  } else {
+    maxValue = v;
+    maxH3.textContent = maxValue;
+
+    if (counterValue > maxValue) {
+      counterValue = maxValue;
+      counter.textContent = counterValue;
+    }
+  }
+};
+
 // Ajout des événements aux boutons
 incrementBtn.addEventListener("click", () => {
-  if (
-    maxValue.textContent === "♾️" ||
-    Number(counter.textContent) < Number(maxValue.textContent)
-  ) {
-    counter.textContent++;
-  }
+  changeValue("+");
 });
 
 decrementBtn.addEventListener("click", () => {
-  if (counter.textContent > 0) {
-    counter.textContent--;
-  }
+  changeValue("-");
 });
 
 resetBtn.addEventListener("click", () => {
-  counter.textContent = 0;
+  changeValue();
 });
 
 maxValueInput.addEventListener("input", () => {
-  if (maxValueInput.value === "") {
-    maxValue.textContent = "♾️";
-  } else {
-    maxValue.textContent = maxValueInput.value;
-  }
+  changeMaxValue(maxValueInput.value);
 });
